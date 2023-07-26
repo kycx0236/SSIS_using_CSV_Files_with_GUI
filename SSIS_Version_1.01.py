@@ -576,7 +576,7 @@ def remove_one_student():
 def remove_one_course():
     response = messagebox.askyesno(
         "WARNING!",
-        "Are you sure you want to delete this course from the table?",
+        "Are you sure you want to delete this data from the table?",
     )
     if response == 1:
         selected_courses = treeview_courses.selection()
