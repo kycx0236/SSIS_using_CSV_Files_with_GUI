@@ -540,11 +540,11 @@ def check_courses_match(course_code_verifier=None):
 def remove_one_student():
     response = messagebox.askyesno(
         "WARNING!",
-        "Are you sure you want to delete this course from the table?",
+        "Are you sure you want to delete this data from the table?",
     )
     if response == 1:
-        selected_course = treeview_students.selection()
-        for data in selected_course:
+        selected_student = treeview_students.selection()
+        for data in selected_student:
             id_data = treeview_students.item(data, "values")[0]
         print(id_data)
 
