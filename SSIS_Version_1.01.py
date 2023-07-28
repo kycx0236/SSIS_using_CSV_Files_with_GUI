@@ -67,7 +67,6 @@ def query_database_students():
                         data[3],
                         data[4],
                         data[5],
-                        data[6],
                     ),
                     tags=("evenrow",),
                 )
@@ -83,7 +82,6 @@ def query_database_students():
                         data[3],
                         data[4],
                         data[5],
-                        data[6],
                     ),
                     tags=("oddrow",),
                 )
@@ -313,7 +311,6 @@ fieldnames = [
     "idnumber",
     "name",
     "course_code",
-    "course_name",
     "year_level",
     "gender",
     "address",
@@ -326,12 +323,11 @@ treeview_courses["columns"] = fieldnames_courses
 # Format our columns
 treeview_students.column("#0", stretch="NO", width=0)
 treeview_students.column("idnumber", anchor="w", width=100)
-treeview_students.column("name", anchor="w", width=190)
+treeview_students.column("name", anchor="w", width=200)
 treeview_students.column("course_code", anchor="w", width=80)
-treeview_students.column("course_name", anchor="w", width=160)
-treeview_students.column("year_level", anchor="center", width=80)
-treeview_students.column("gender", anchor="center", width=80)
-treeview_students.column("address", anchor="w", width=200)
+treeview_students.column("year_level", anchor="center", width=100)
+treeview_students.column("gender", anchor="center", width=100)
+treeview_students.column("address", anchor="w", width=310)
 
 treeview_courses.column("#0", stretch="NO", width=0)
 treeview_courses.column("course_code", anchor="w", width=100)
@@ -342,7 +338,6 @@ treeview_students.heading("#0", text="", anchor="w")
 treeview_students.heading("idnumber", text="ID Number", anchor="center")
 treeview_students.heading("name", text="Full Name", anchor="center")
 treeview_students.heading("course_code", text="Course Code", anchor="center")
-treeview_students.heading("course_name", text="Course Name", anchor="center")
 treeview_students.heading("year_level", text="Year Level", anchor="center")
 treeview_students.heading("gender", text="Gender", anchor="center")
 treeview_students.heading("address", text="Address", anchor="center")
@@ -377,25 +372,20 @@ course_code_label.grid(row=0, column=4, padx=10, pady=10)
 course_code_entry = ttk.Entry(data_frame)
 course_code_entry.grid(row=0, column=5, padx=10, pady=10)
 
-course_name_label = ttk.Label(data_frame, text="Course Name")
-course_name_label.grid(row=1, column=0, padx=10, pady=10)
-course_name_entry = ttk.Entry(data_frame)
-course_name_entry.grid(row=1, column=1, padx=10, pady=10)
-
 year_level_label = ttk.Label(data_frame, text="Year Level")
-year_level_label.grid(row=1, column=2, padx=10, pady=10)
+year_level_label.grid(row=1, column=0, padx=10, pady=10)
 year_level_entry = ttk.Entry(data_frame)
-year_level_entry.grid(row=1, column=3, padx=10, pady=10)
+year_level_entry.grid(row=1, column=1, padx=10, pady=10)
 
 gender_label = ttk.Label(data_frame, text="Gender")
-gender_label.grid(row=1, column=4, padx=10, pady=10)
+gender_label.grid(row=1, column=2, padx=10, pady=10)
 gender_entry = ttk.Entry(data_frame)
-gender_entry.grid(row=1, column=5, padx=10, pady=10)
+gender_entry.grid(row=1, column=3, padx=10, pady=10)
 
 address_label = ttk.Label(data_frame, text="Address")
-address_label.grid(row=2, column=0, padx=10, pady=10)
+address_label.grid(row=1, column=4, padx=10, pady=10)
 address_entry = ttk.Entry(data_frame)
-address_entry.grid(row=2, column=1, padx=10, pady=10)
+address_entry.grid(row=1, column=5, padx=10, pady=10)
 
 # Add Courses Entry Boxes and Labels
 data_frame_courses = ttk.LabelFrame(root, text="Course Information")
@@ -453,7 +443,6 @@ def select_record(event):
     idnumber_entry.delete(0, "end")
     name_entry.delete(0, "end")
     course_code_entry.delete(0, "end")
-    course_name_entry.delete(0, "end")
     year_level_entry.delete(0, "end")
     gender_entry.delete(0, "end")
     address_entry.delete(0, "end")
@@ -467,10 +456,9 @@ def select_record(event):
     idnumber_entry.insert(0, values[0])
     name_entry.insert(0, values[1])
     course_code_entry.insert(0, values[2])
-    course_name_entry.insert(0, values[3])
-    year_level_entry.insert(0, values[4])
-    gender_entry.insert(0, values[5])
-    address_entry.insert(0, values[6])
+    year_level_entry.insert(0, values[3])
+    gender_entry.insert(0, values[4])
+    address_entry.insert(0, values[5])
 
 
 def select_courses(event):
@@ -493,7 +481,6 @@ def clear_entries():
     idnumber_entry.delete(0, "end")
     name_entry.delete(0, "end")
     course_code_entry.delete(0, "end")
-    course_name_entry.delete(0, "end")
     year_level_entry.delete(0, "end")
     gender_entry.delete(0, "end")
     address_entry.delete(0, "end")
@@ -642,7 +629,7 @@ def add_course_widget():
     global course_code_widget_entry, course_name_widget_entry, course_widget_main_frame
 
     course_widget_main_frame = tk.Toplevel(root)
-    course_widget_main_frame.title("Search Records")
+    course_widget_main_frame.title("Add Courses")
     course_widget_main_frame.geometry("500x300")
 
     # Create Label Frame
@@ -659,8 +646,8 @@ def add_course_widget():
         course_widget_frame,
         text="Course Name",
     )
-    course_code_widget_entry = ctk.CTkEntry(course_widget_frame, font=("Helvetica", 18))
-    course_name_widget_entry = ctk.CTkEntry(course_widget_frame, font=("Helvetica", 18))
+    course_code_widget_entry = ttk.Entry(course_widget_frame, font=("Helvetica", 18))
+    course_name_widget_entry = ttk.Entry(course_widget_frame, font=("Helvetica", 18))
 
     course_code_widget_label.grid(row=0, column=0, padx=10, pady=10, sticky="news")
     course_code_widget_entry.grid(row=0, column=1, padx=10, pady=10, sticky="news")
@@ -704,7 +691,6 @@ def add_new_student():
                         "idnumber": idnumber_entry.get(),
                         "name": name_entry.get(),
                         "course_code": course_code_entry.get(),
-                        "course_name": course_name_entry.get(),
                         "year_level": year_level_entry.get(),
                         "gender": gender_entry.get(),
                         "address": address_entry.get(),
@@ -753,7 +739,6 @@ def add_new_course():
 
 
 def add_new_course_2():
-    course_widget_main_frame.destroy()
     with open(data_of_courses, "a", newline="") as add_course:
         writer = csv.DictWriter(
             add_course, fieldnames=fieldnames_courses, lineterminator="\n"
@@ -764,8 +749,6 @@ def add_new_course_2():
                 "course_name": course_name_widget_entry.get(),
             }
         )
-    # Clear Entry Boxes
-    clear_entries_for_course()
     # Clear the Treeview Table
     treeview_courses.delete(*treeview_courses.get_children())
 
@@ -796,7 +779,6 @@ def update_student_info():
             idnumber_entry.get(),
             name_entry.get(),
             course_code_entry.get(),
-            course_name_entry.get(),
             year_level_entry.get(),
             gender_entry.get(),
             address_entry.get(),
@@ -815,7 +797,6 @@ def update_student_info():
                             idnumber_entry.get(),
                             name_entry.get(),
                             course_code_entry.get(),
-                            course_name_entry.get(),
                             year_level_entry.get(),
                             gender_entry.get(),
                             address_entry.get(),
@@ -860,7 +841,6 @@ def update_course_info():
             idnumber_entry.get(),
             name_entry.get(),
             course_code_entry.get(),
-            course_name_entry.get(),
             year_level_entry.get(),
             gender_entry.get(),
             address_entry.get(),
